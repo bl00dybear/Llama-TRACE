@@ -3,12 +3,11 @@ import gc
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import torch.distributed as dist
 import logging
 import math
 from tqdm import tqdm
 from data_pipeline.trace_loader import TraceTaskDataset, CollateFunction
-from torch.utils.data import DataLoader, DistributedSampler
+from torch.utils.data import DataLoader
 import torch.multiprocessing as mp
 
 logger = logging.getLogger(__name__)
@@ -98,19 +97,15 @@ def _get_target_weight(module):
         return module.base.weight
     return module.weight
 
-def accumulate_gradients_task(model, tokenizer, task_name, device, rank, world_size, cfg):
+def accumulate_gradients_task(model, tokenizer, task_name, device, cfg):
     train_ds = TraceTaskDataset(cfg.data.root, task_name, split="train", max_examples=cfg.data.smoke_max_train_examples_per_task)
     collate_fn = CollateFunction(tokenizer, cfg.data.max_length)
-    
-    sampler = None
-    if dist.is_available() and dist.is_initialized() and world_size > 1:
-        sampler = DistributedSampler(train_ds, num_replicas=world_size, rank=rank, shuffle=True, drop_last=False)
         
     train_dl = DataLoader(
         train_ds, 
         batch_size=cfg.training.batch_size, 
         num_workers=cfg.training.num_workers, 
-        sampler=sampler, 
+        shuffle=True, 
         collate_fn=collate_fn,
         multiprocessing_context=mp.get_context("spawn") if cfg.training.num_workers > 0 else None
     )
@@ -134,7 +129,7 @@ def accumulate_gradients_task(model, tokenizer, task_name, device, rank, world_s
         logger.warning("No target modules found for gradient accumulation!")
 
     model.train()
-    pbar = tqdm(train_dl, desc=f"[cuda: {rank}] SAFT-grads {task_name}", disable=(rank != 0), position=rank, leave=True)
+    pbar = tqdm(train_dl, desc=f"SAFT-grads {task_name}", leave=True)
 
     for batch in pbar:
         input_ids = batch["input_ids"].to(device, non_blocking=True)
@@ -177,63 +172,33 @@ def compute_binary_masks(target_weights_dict, threshold, cfg):
         binary_masks[name] = mask
     return binary_masks
 
-def prepare_task_adapter(model, is_first_task, device, task_list, rank, world_size, cfg):
+def prepare_task_adapter(model, is_first_task, device, task_list, cfg):
     task_name = task_list[0]
     from transformers import AutoTokenizer
     tokenizer = AutoTokenizer.from_pretrained(cfg.model.id)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
-    model_to_use = model.module if hasattr(model, "module") else model
-
     if not is_first_task:
-        for m in model_to_use.modules():
+        for m in model.modules():
             if isinstance(m, LoRAStackLinear):
                 m.merge_active_to_frozen()
 
-    model_to_use, target_weights_dict = accumulate_gradients_task(model_to_use, tokenizer, task_name, device, rank, world_size, cfg)
-
-    if dist.is_available() and dist.is_initialized() and world_size > 1:
-        sorted_names = sorted(target_weights_dict.keys())
-        for name in sorted_names:
-            tw = target_weights_dict[name]
-            if tw.grad is None:
-                tw.grad = torch.zeros_like(tw)
-            
-            dist.all_reduce(tw.grad, op=dist.ReduceOp.SUM)
-            tw.grad.div_(world_size)
-
-    dist.barrier(device_ids=[rank])
+    model, target_weights_dict = accumulate_gradients_task(model, tokenizer, task_name, device, cfg)
 
     threshold = find_threshold(target_weights_dict, cfg)
     binary_masks = compute_binary_masks(target_weights_dict, threshold, cfg)
 
-    if world_size > 1:
-        masks_keys = sorted(binary_masks.keys()) if rank == 0 else None
-        masks_meta = [(k, binary_masks[k].shape, binary_masks[k].dtype) for k in masks_keys] if rank == 0 else None
-        meta_list = [masks_keys, masks_meta] if rank == 0 else [None, None]
-        dist.broadcast_object_list(meta_list, src=0)
-        masks_keys, masks_meta = meta_list
-        
-        if rank != 0:
-            binary_masks = {k: torch.empty(shape, dtype=dtype, device=device) for k, shape, dtype in masks_meta}
-        
-        for k in masks_keys:
-            dist.broadcast(binary_masks[k], src=0)
-
-    dist.barrier(device_ids=[rank])
-
     if is_first_task:
-        model_to_use = inject_lora(model_to_use, binary_masks, device, cfg)
+        model = inject_lora(model, binary_masks, device, cfg)
     else:
-        for name, m in model_to_use.named_modules():
+        for name, m in model.named_modules():
             if isinstance(m, LoRAStackLinear):
                 m.reset_active_adapter(binary_masks.get(f"{name}", None))
 
-    for p in model_to_use.parameters():
+    for p in model.parameters():
         p.grad = None
     gc.collect()
     torch.cuda.empty_cache()
     
-    dist.barrier(device_ids=[rank])
-    return model_to_use
+    return model

@@ -1,6 +1,7 @@
 ```bash
-runpod pod create "Continuon-Llama-TRACE" \
-  --gpu-count 1 \
+runpod pod create \
+  --image "runpod/pytorch:2.4.0-py3.11-cuda12.4.1-ubuntu22.04" \
   --gpu-type "NVIDIA RTX 3090" \
-  --image "runpod/pytorch:1.0.2-cu1281-torch280-ubuntu2404"
+  --gpu-count 1 \
+  "Continuon-Llama-TRACE"
 ```

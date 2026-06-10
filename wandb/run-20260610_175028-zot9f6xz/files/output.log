@@ -1,0 +1,120 @@
+[2026-06-10 17:50:29,956][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-06-10 17:50:30,099][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct/resolve/main/config.json "HTTP/1.1 200 OK"
+[2026-06-10 17:50:30,253][httpx][INFO] - HTTP Request: GET https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct/resolve/main/config.json "HTTP/1.1 200 OK"
+config.json: 100%|███████████████████████████████████████████████████████████████████████████████| 855/855 [00:00<00:00, 1.42MB/s]
+[2026-06-10 17:50:30,411][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-06-10 17:50:30,551][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-06-10 17:50:30,696][httpx][INFO] - HTTP Request: GET https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+tokenizer_config.json: 100%|█████████████████████████████████████████████████████████████████| 55.4k/55.4k [00:00<00:00, 40.4MB/s]
+[2026-06-10 17:50:30,850][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Meta-Llama-3.1-8B-Instruct/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+[2026-06-10 17:50:30,993][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-3.1-8B-Instruct/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[2026-06-10 17:50:31,138][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Meta-Llama-3.1-8B-Instruct/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+[2026-06-10 17:50:31,287][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-3.1-8B-Instruct/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[2026-06-10 17:50:31,525][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct/resolve/main/tokenizer.json "HTTP/1.1 307 Temporary Redirect"
+[2026-06-10 17:50:31,671][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct/resolve/main/tokenizer.json "HTTP/1.1 200 OK"
+[2026-06-10 17:50:31,855][httpx][INFO] - HTTP Request: GET https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct/resolve/main/tokenizer.json "HTTP/1.1 200 OK"
+tokenizer.json: 100%|████████████████████████████████████████████████████████████████████████| 9.09M/9.09M [00:00<00:00, 17.3MB/s]
+[2026-06-10 17:50:32,526][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct/resolve/main/tokenizer.model "HTTP/1.1 307 Temporary Redirect"
+[2026-06-10 17:50:32,670][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct/resolve/main/tokenizer.model "HTTP/1.1 404 Not Found"
+[2026-06-10 17:50:32,814][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct/resolve/main/added_tokens.json "HTTP/1.1 307 Temporary Redirect"
+[2026-06-10 17:50:32,978][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct/resolve/main/added_tokens.json "HTTP/1.1 404 Not Found"
+[2026-06-10 17:50:33,117][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct/resolve/main/special_tokens_map.json "HTTP/1.1 307 Temporary Redirect"
+[2026-06-10 17:50:33,258][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct/resolve/main/special_tokens_map.json "HTTP/1.1 200 OK"
+[2026-06-10 17:50:33,402][httpx][INFO] - HTTP Request: GET https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct/resolve/main/special_tokens_map.json "HTTP/1.1 200 OK"
+special_tokens_map.json: 100%|████████████████████████████████████████████████████████████████████| 296/296 [00:00<00:00, 515kB/s]
+[2026-06-10 17:50:33,565][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct/resolve/main/chat_template.jinja "HTTP/1.1 307 Temporary Redirect"
+[2026-06-10 17:50:33,707][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+[2026-06-10 17:50:35,068][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Meta-Llama-3.1-8B-Instruct "HTTP/1.1 307 Temporary Redirect"
+[2026-06-10 17:50:35,214][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-3.1-8B-Instruct "HTTP/1.1 200 OK"
+[2026-06-10 17:50:35,398][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-06-10 17:50:35,539][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct/resolve/main/config.json "HTTP/1.1 200 OK"
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+[2026-06-10 17:50:35,989][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct/resolve/main/model.safetensors "HTTP/1.1 307 Temporary Redirect"
+[2026-06-10 17:50:36,136][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+[2026-06-10 17:50:36,301][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct/resolve/main/model.safetensors.index.json "HTTP/1.1 307 Temporary Redirect"
+[2026-06-10 17:50:36,443][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct/resolve/main/model.safetensors.index.json "HTTP/1.1 200 OK"
+[2026-06-10 17:50:36,597][httpx][INFO] - HTTP Request: GET https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct/resolve/main/model.safetensors.index.json "HTTP/1.1 200 OK"
+model.safetensors.index.json: 100%|██████████████████████████████████████████████████████████| 23.9k/23.9k [00:00<00:00, 16.8MB/s]
+[2026-06-10 17:50:36,742][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Meta-Llama-3.1-8B-Instruct/revision/main "HTTP/1.1 307 Temporary Redirect"
+[2026-06-10 17:50:36,891][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-3.1-8B-Instruct/revision/main "HTTP/1.1 200 OK"
+Fetching 4 files:   0%|                                                                                     | 0/4 [02:16<?, ?it/s]
+Traceback (most recent call last):                                                                          | 0/4 [00:00<?, ?it/s]
+[2026-06-10 17:50:37,042][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct/resolve/0e9e39f249a16976918f6564b8830bc894c89659/model-00001-of-00004.safetensors "HTTP/1.1 307 Temporary Redirect"
+[2026-06-10 17:50:37,107][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct/resolve/0e9e39f249a16976918f6564b8830bc894c89659/model-00003-of-00004.safetensors "HTTP/1.1 307 Temporary Redirect"
+[2026-06-10 17:50:37,109][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct/resolve/0e9e39f249a16976918f6564b8830bc894c89659/model-00004-of-00004.safetensors "HTTP/1.1 307 Temporary Redirect"
+[2026-06-10 17:50:37,111][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct/resolve/0e9e39f249a16976918f6564b8830bc894c89659/model-00002-of-00004.safetensors "HTTP/1.1 307 Temporary Redirect"
+[2026-06-10 17:50:37,182][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct/resolve/0e9e39f249a16976918f6564b8830bc894c89659/model-00001-of-00004.safetensors "HTTP/1.1 302 Found"
+[2026-06-10 17:50:37,251][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct/resolve/0e9e39f249a16976918f6564b8830bc894c89659/model-00003-of-00004.safetensors "HTTP/1.1 302 Found"
+[2026-06-10 17:50:37,256][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct/resolve/0e9e39f249a16976918f6564b8830bc894c89659/model-00002-of-00004.safetensors "HTTP/1.1 302 Found"
+[2026-06-10 17:50:37,260][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct/resolve/0e9e39f249a16976918f6564b8830bc894c89659/model-00004-of-00004.safetensors "HTTP/1.1 302 Found"
+[2026-06-10 17:50:37,351][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-3.1-8B-Instruct/xet-read-token/0e9e39f249a16976918f6564b8830bc894c89659 "HTTP/1.1 200 OK"
+[2026-06-10 17:50:37,392][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-3.1-8B-Instruct/xet-read-token/0e9e39f249a16976918f6564b8830bc894c89659 "HTTP/1.1 200 OK"
+[2026-06-10 17:50:37,400][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-3.1-8B-Instruct/xet-read-token/0e9e39f249a16976918f6564b8830bc894c89659 "HTTP/1.1 200 OK"
+[2026-06-10 17:50:37,403][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-3.1-8B-Instruct/xet-read-token/0e9e39f249a16976918f6564b8830bc894c89659 "HTTP/1.1 200 OK"
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/main.py", line 13, in <module>
+    main()
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/hydra/main.py", line 94, in decorated_main
+    _run_hydra(
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/hydra/_internal/utils.py", line 394, in _run_hydra
+    _run_app(
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/hydra/_internal/utils.py", line 457, in _run_app
+    run_and_report(
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+           ^^^^^^
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+            ^^^^^^^^^^
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/hydra/_internal/hydra.py", line 119, in run
+    ret = run_job(
+          ^^^^^^^^
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/hydra/core/utils.py", line 186, in run_job
+    ret.return_value = task_function(task_cfg)
+                       ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/main.py", line 10, in main
+    run_continual_learning_pipeline(cfg)
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/engine/training_loop.py", line 163, in run_continual_learning_pipeline
+    model, tokenizer = get_llm(cfg)
+                       ^^^^^^^^^^^^
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/engine/training_loop.py", line 31, in get_llm
+    model = AutoModelForCausalLM.from_pretrained(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 404, in from_pretrained
+    return model_class.from_pretrained(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 4216, in from_pretrained
+    checkpoint_files, sharded_metadata = _get_resolved_checkpoint_files(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 797, in _get_resolved_checkpoint_files
+    checkpoint_files, sharded_metadata = get_checkpoint_shard_files(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/transformers/utils/hub.py", line 894, in get_checkpoint_shard_files
+    cached_filenames = cached_files(
+                       ^^^^^^^^^^^^^
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/transformers/utils/hub.py", line 452, in cached_files
+    snapshot_download(
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/huggingface_hub/_snapshot_download.py", line 456, in snapshot_download
+    thread_map(
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/tqdm/contrib/concurrent.py", line 69, in thread_map
+    return _executor_map(ThreadPoolExecutor, fn, *iterables, **tqdm_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/tqdm/contrib/concurrent.py", line 51, in _executor_map
+    return list(tqdm_class(ex.map(fn, *iterables, chunksize=chunksize), **kwargs))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/tqdm/std.py", line 1181, in __iter__
+    for obj in iterable:
+               ^^^^^^^^
+  File "/home/sebi/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/_base.py", line 619, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebi/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/_base.py", line 317, in _result_or_cancel
+    return fut.result(timeout)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/sebi/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/_base.py", line 451, in result
+    self._condition.wait(timeout)
+  File "/home/sebi/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/threading.py", line 355, in wait
+    waiter.acquire()
+KeyboardInterrupt

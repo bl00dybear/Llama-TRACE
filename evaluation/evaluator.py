@@ -2,6 +2,7 @@ import gc
 import torch
 from torch.utils.data import DataLoader
 import logging
+from tqdm import tqdm
 from data_pipeline.trace_loader import TraceTaskDataset
 import torch.multiprocessing as mp
 try:
@@ -14,12 +15,14 @@ logger = logging.getLogger(__name__)
 
 def test_task(model, tokenizer, task_name, device, cfg):
     task_type = cfg.data.task_types[task_name]
+    logger.info(f"Evaluating task '{task_name}' (type={task_type})")
     ds = TraceTaskDataset(
         cfg.data.root,
         task_name,
         split="test",
         max_examples=cfg.data.smoke_max_eval_examples_per_task,
     )
+    logger.info(f"  Loaded {len(ds)} test examples for '{task_name}'")
     dl = DataLoader(
         ds,
         batch_size=cfg.training.batch_size,
@@ -29,15 +32,17 @@ def test_task(model, tokenizer, task_name, device, cfg):
     )
     model.eval()
     if task_type == "classification":
-        return _eval_classification(model, tokenizer, dl, device, cfg)
+        score = _eval_classification(model, tokenizer, dl, device, cfg, task_name)
     else:
-        return _eval_generation(model, tokenizer, dl, device, cfg)
+        score = _eval_generation(model, tokenizer, dl, device, cfg, task_name)
+    logger.info(f"  '{task_name}' score: {score:.4f}")
+    return score
 
-def _eval_classification(model, tokenizer, dl, device, cfg):
+def _eval_classification(model, tokenizer, dl, device, cfg, task_name=""):
     correct = 0
     total = 0
     with torch.no_grad():
-        for prompts, answers in dl:
+        for prompts, answers in tqdm(dl, desc=f"Eval {task_name} (cls)", leave=False):
             inputs = tokenizer(
                 list(prompts),
                 return_tensors="pt",
@@ -61,15 +66,18 @@ def _eval_classification(model, tokenizer, dl, device, cfg):
                 total += 1
     gc.collect()
     torch.cuda.empty_cache()
-    return correct / max(total, 1)
+    acc = correct / max(total, 1)
+    logger.info(f"  Classification {task_name}: {correct}/{total} correct  (acc={acc:.4f})")
+    return acc
 
-def _eval_generation(model, tokenizer, dl, device, cfg):
+def _eval_generation(model, tokenizer, dl, device, cfg, task_name=""):
     if not HAS_ROUGE:
+        logger.warning("rouge_score not installed — returning 0.0 for generation eval")
         return 0.0
     scorer = rouge_lib.RougeScorer(["rougeL"], use_stemmer=True)
     scores = []
     with torch.no_grad():
-        for prompts, answers in dl:
+        for prompts, answers in tqdm(dl, desc=f"Eval {task_name} (gen)", leave=False):
             inputs = tokenizer(
                 list(prompts),
                 return_tensors="pt",
@@ -92,4 +100,6 @@ def _eval_generation(model, tokenizer, dl, device, cfg):
                 scores.append(score)
     gc.collect()
     torch.cuda.empty_cache()
-    return sum(scores) / max(len(scores), 1)
+    avg = sum(scores) / max(len(scores), 1)
+    logger.info(f"  Generation {task_name}: {len(scores)} examples  (rougeL={avg:.4f})")
+    return avg

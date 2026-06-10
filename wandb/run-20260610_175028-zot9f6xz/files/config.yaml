@@ -1,0 +1,137 @@
+_wandb:
+    value:
+        cli_version: 0.27.2
+        e:
+            bnoq611hs4f3yeshmauqaf6dm0fej1ph:
+                args:
+                    - adapters=lora_stack
+                    - optimizer=muon
+                codePath: main.py
+                codePathLocal: main.py
+                cpu_count: 40
+                cpu_count_logical: 80
+                cudaVersion: "13.0"
+                disk:
+                    /:
+                        total: "243885932544"
+                        used: "208249479168"
+                email: sincarisebastian@gmail.com
+                executable: /run/media/sebi/nvme-1tb/Llama-TRACE/.venv/bin/python3
+                git:
+                    commit: 0237fc94a71e42382f5ab1fac9a7748ed0cd4076
+                    remote: git@github.com:bl00dybear/Llama-TRACE.git
+                gpu: NVIDIA RTX A2000 12GB
+                gpu_count: 2
+                gpu_nvidia:
+                    - architecture: Ampere
+                      cudaCores: 3328
+                      memoryTotal: "12073304064"
+                      name: NVIDIA RTX A2000 12GB
+                      uuid: GPU-cddbc918-5442-f3c0-9b0b-f3217059aacc
+                    - architecture: Ampere
+                      cudaCores: 3328
+                      memoryTotal: "12073304064"
+                      name: NVIDIA RTX A2000 12GB
+                      uuid: GPU-51c958e2-b2c6-87f5-a8d5-33cf05f373bb
+                host: HP-Z6-G4-Workstation
+                memory:
+                    total: "132413976576"
+                os: Linux-7.0.0-22-generic-x86_64-with-glibc2.43
+                program: /run/media/sebi/nvme-1tb/Llama-TRACE/main.py
+                python: CPython 3.12.13
+                root: /run/media/sebi/nvme-1tb/Llama-TRACE
+                startedAt: "2026-06-10T14:50:28.278908Z"
+                writerId: bnoq611hs4f3yeshmauqaf6dm0fej1ph
+        m: []
+        python_version: 3.12.13
+        t:
+            "1":
+                - 1
+                - 11
+                - 49
+                - 50
+            "2":
+                - 1
+                - 11
+                - 49
+                - 50
+            "3":
+                - 13
+                - 15
+                - 16
+            "4": 3.12.13
+            "5": 0.27.2
+            "6": 5.10.2
+            "10":
+                - 20
+            "12": 0.27.2
+            "13": linux-x86_64
+adapters:
+    value:
+        adapt_bias: false
+        alpha: 64
+        method: standard
+        rank: 64
+        target_modules:
+            - q_proj
+            - v_proj
+data:
+    value:
+        max_length: 256
+        max_new_tokens: 128
+        root: dataset-trace/LLM-CL-Benchmark_500
+        smoke_max_eval_examples_per_task: 2
+        smoke_max_train_examples_per_task: 4
+        task_types:
+            20Minuten: generation
+            C-STANCE: classification
+            FOMC: classification
+            MeetingBank: generation
+            NumGLUE-cm: classification
+            NumGLUE-ds: classification
+            Py150: generation
+            ScienceQA: classification
+        tasks:
+            - C-STANCE
+            - FOMC
+            - MeetingBank
+            - Py150
+            - ScienceQA
+            - NumGLUE-cm
+            - NumGLUE-ds
+            - 20Minuten
+experiment_name:
+    value: standard_muon_r64_lr0.0001
+model:
+    value:
+        gradient_checkpointing: true
+        id: meta-llama/Meta-Llama-3.1-8B-Instruct
+num_devices:
+    value: null
+optimizer:
+    value:
+        _target_: heavyball.Muon
+        betas:
+            - 0.95
+            - 0.99
+        compile_step: false
+        lr: 0.0001
+        optimizer_name: muon
+plots_dir:
+    value: outputs/llama_trace/standard_muon_r64_lr0.0001
+save_plots:
+    value: true
+training:
+    value:
+        batch_size: 1
+        epochs: 1
+        grad_accum_steps: 16
+        num_workers: 16
+wandb:
+    value:
+        enabled: true
+        entity: null
+        project: Continuon-llama-trace
+        tags:
+            - standard
+            - muon
