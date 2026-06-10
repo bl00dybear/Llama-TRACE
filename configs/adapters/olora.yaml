@@ -1,0 +1,8 @@
+method: "olora"
+rank: 64
+alpha: 64
+adapt_bias: false
+target_modules:
+  - "q_proj"
+  - "v_proj"
+olora_lambda: 0.1

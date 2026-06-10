@@ -1,0 +1,9 @@
+method: "null_space"
+rank: 64
+alpha: 64
+adapt_bias: false
+target_modules:
+  - "q_proj"
+  - "v_proj"
+null_space_rank: 8 # if null, uses svd_eps to determine rank
+svd_eps: 1e-4

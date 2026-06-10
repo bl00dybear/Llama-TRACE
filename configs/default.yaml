@@ -1,0 +1,52 @@
+defaults:
+  - optimizer: adamw
+  - adapters: lora_stack
+  - _self_
+
+experiment_name: "${adapters.method}_${optimizer.optimizer_name}_r${adapters.rank}_lr${optimizer.lr}"
+save_plots: true
+plots_dir: "outputs/llama_trace/${experiment_name}"
+
+wandb:
+  enabled: true
+  project: "Continuon-llama-trace"
+  entity: null
+  tags: ["${adapters.method}", "${optimizer.optimizer_name}"]
+
+
+num_devices: null # null means use all available GPUs
+
+model:
+  id: "meta-llama/Meta-Llama-3.1-8B-Instruct"
+  gradient_checkpointing: true
+
+data:
+  root: "dataset-trace/LLM-CL-Benchmark_500"
+  max_length: 256
+  max_new_tokens: 128
+  smoke_max_train_examples_per_task: 4
+  smoke_max_eval_examples_per_task: 2
+  tasks:
+    - "C-STANCE"
+    - "FOMC"
+    - "MeetingBank"
+    - "Py150"
+    - "ScienceQA"
+    - "NumGLUE-cm"
+    - "NumGLUE-ds"
+    - "20Minuten"
+  task_types:
+    "C-STANCE": "classification"
+    "FOMC": "classification"
+    "MeetingBank": "generation"
+    "Py150": "generation"
+    "ScienceQA": "classification"
+    "NumGLUE-cm": "classification"
+    "NumGLUE-ds": "classification"
+    "20Minuten": "generation"
+
+training:
+  batch_size: 1
+  num_workers: 16
+  grad_accum_steps: 16
+  epochs: 1

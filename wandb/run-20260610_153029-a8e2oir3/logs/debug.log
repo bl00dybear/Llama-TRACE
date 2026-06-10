@@ -1,0 +1,45 @@
+2026-06-10 15:30:29,014 INFO    MainThread:3831628 [wandb_setup.py:_flush():81] Current SDK version is 0.27.2
+2026-06-10 15:30:29,014 INFO    MainThread:3831628 [wandb_setup.py:_flush():81] Configure stats pid to 3831628
+2026-06-10 15:30:29,015 INFO    MainThread:3831628 [wandb_setup.py:_flush():81] Loading settings from environment variables
+2026-06-10 15:30:29,015 INFO    MainThread:3831628 [wandb_init.py:setup_run_log_directory():723] Logging user logs to /run/media/sebi/nvme-1tb/Llama-TRACE/wandb/run-20260610_153029-a8e2oir3/logs/debug.log
+2026-06-10 15:30:29,015 INFO    MainThread:3831628 [wandb_init.py:setup_run_log_directory():724] Logging internal logs to /run/media/sebi/nvme-1tb/Llama-TRACE/wandb/run-20260610_153029-a8e2oir3/logs/debug-internal.log
+2026-06-10 15:30:29,015 INFO    MainThread:3831628 [wandb_init.py:init():766] calling init triggers
+2026-06-10 15:30:29,015 INFO    MainThread:3831628 [wandb_init.py:init():771] wandb.init called with sweep_config: {}
+config: {'optimizer': {'_target_': 'torch.optim.AdamW', 'lr': 0.0001, 'weight_decay': 0.01, 'optimizer_name': 'adamw'}, 'adapters': {'method': 'standard', 'rank': 64, 'alpha': 64, 'adapt_bias': False, 'target_modules': ['q_proj', 'v_proj']}, 'experiment_name': 'standard_adamw_r64_lr0.0001', 'save_plots': True, 'plots_dir': 'outputs/llama_trace/standard_adamw_r64_lr0.0001', 'wandb': {'enabled': True, 'project': 'Continuon-llama-trace', 'entity': None, 'tags': ['standard', 'adamw']}, 'num_devices': None, 'model': {'id': 'meta-llama/Llama-3.2-1B-Instruct', 'gradient_checkpointing': True}, 'data': {'root': 'dataset-trace/LLM-CL-Benchmark_500', 'max_length': 256, 'max_new_tokens': 128, 'smoke_max_train_examples_per_task': 4, 'smoke_max_eval_examples_per_task': 2, 'tasks': ['C-STANCE', 'FOMC', 'MeetingBank', 'Py150', 'ScienceQA', 'NumGLUE-cm', 'NumGLUE-ds', '20Minuten'], 'task_types': {'C-STANCE': 'classification', 'FOMC': 'classification', 'MeetingBank': 'generation', 'Py150': 'generation', 'ScienceQA': 'classification', 'NumGLUE-cm': 'classification', 'NumGLUE-ds': 'classification', '20Minuten': 'generation'}}, 'training': {'batch_size': 1, 'num_workers': 16, 'grad_accum_steps': 4, 'epochs': 1}, '_wandb': {}}
+2026-06-10 15:30:29,015 INFO    MainThread:3831628 [wandb_init.py:init():814] starting backend
+2026-06-10 15:30:29,015 INFO    MainThread:3831628 [wandb_init.py:init():829] sending inform_init request
+2026-06-10 15:30:29,378 INFO    MainThread:3831628 [wandb_init.py:init():834] backend started and connected
+2026-06-10 15:30:29,382 INFO    MainThread:3831628 [wandb_init.py:init():904] updated telemetry
+2026-06-10 15:30:29,393 INFO    MainThread:3831628 [wandb_init.py:init():927] communicating run to backend with 90.0 second timeout
+2026-06-10 15:30:29,766 INFO    MainThread:3831628 [wandb_init.py:init():972] starting run threads in backend
+2026-06-10 15:30:29,822 INFO    MainThread:3831628 [wandb_run.py:_console_start():2523] atexit reg
+2026-06-10 15:30:29,823 INFO    MainThread:3831628 [wandb_run.py:_redirect():2373] redirect: wrap_raw
+2026-06-10 15:30:29,823 INFO    MainThread:3831628 [wandb_run.py:_redirect():2442] Wrapping output streams.
+2026-06-10 15:30:29,823 INFO    MainThread:3831628 [wandb_run.py:_redirect():2465] Redirects installed.
+2026-06-10 15:30:29,829 INFO    MainThread:3831628 [wandb_init.py:init():1010] run started, returning control to user process
+2026-06-10 15:31:02,289 INFO    wandb-AsyncioManager-main:3831628 [service_client.py:_forward_responses():122] [no run ID] Reached EOF.
+2026-06-10 15:31:02,289 INFO    wandb-AsyncioManager-main:3831628 [mailbox.py:close():154] [no run ID] Closing mailbox, abandoning 2 handles.
+2026-06-10 15:31:02,289 ERROR   wandb-AsyncioManager-main:3831628 [asyncio_manager.py:fn_wrap_exceptions():184] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/wandb/sdk/lib/asyncio_manager.py", line 182, in fn_wrap_exceptions
+    await fn()
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/wandb/sdk/lib/run_messages.py", line 90, in loop
+    await asyncio_compat.race(
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/wandb/sdk/lib/asyncio_compat.py", line 278, in race
+    async with open_task_group(race=True) as tg:
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebi/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 217, in __aexit__
+    await anext(self.gen)
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/wandb/sdk/lib/asyncio_compat.py", line 240, in open_task_group
+    await task_group._wait_all(race=race, timeout=exit_timeout)
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/wandb/sdk/lib/asyncio_compat.py", line 180, in _wait_all
+    raise exc
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/wandb/sdk/lib/run_messages.py", line 113, in _print_all
+    result = await handle.wait_async(timeout=None)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/wandb/sdk/mailbox/mailbox_handle.py", line 127, in wait_async
+    response = await self._handle.wait_async(timeout=timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/wandb/sdk/mailbox/response_handle.py", line 123, in wait_async
+    raise HandleAbandonedError()
+wandb.sdk.mailbox.mailbox_handle.HandleAbandonedError

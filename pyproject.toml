@@ -1,0 +1,14 @@
+[project]
+name = "llama-trace"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "heavyball>=3.2.0",
+    "hydra-core>=1.3.2",
+    "torch==2.8.0",
+    "tqdm>=4.68.2",
+    "transformers>=5.10.2",
+    "wandb>=0.27.2",
+]

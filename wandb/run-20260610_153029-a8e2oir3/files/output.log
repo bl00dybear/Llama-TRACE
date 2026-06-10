@@ -1,0 +1,31 @@
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct/resolve/main/config.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-3.2-1B-Instruct/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-3.2-1B-Instruct/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-3.2-1B-Instruct "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct/resolve/main/config.json "HTTP/1.1 200 OK"
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights: 100%|████████████████████████████████████████████████████████████████████████| 146/146 [00:00<00:00, 9023.20it/s]
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct/resolve/main/generation_config.json "HTTP/1.1 200 OK"
+[transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer TokenizersBackend. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.
+Exception ignored in: <function _MultiProcessingDataLoaderIter.__del__ at 0x7dfa46963a60>
+Traceback (most recent call last):
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py", line 1664, in __del__
+    self._shutdown_workers()
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py", line 1628, in _shutdown_workers
+    w.join(timeout=_utils.MP_STATUS_CHECK_INTERVAL)
+  File "/home/sebi/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/multiprocessing/process.py", line 149, in join
+    res = self._popen.wait(timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebi/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/multiprocessing/popen_fork.py", line 40, in wait
+    if not wait([self.sentinel], timeout):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebi/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/multiprocessing/connection.py", line 1136, in wait
+    ready = selector.select(timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebi/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/selectors.py", line 415, in select
+    fd_event_list = self._selector.poll(timeout)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/run/media/sebi/nvme-1tb/Llama-TRACE/.venv/lib/python3.12/site-packages/torch/utils/data/_utils/signal_handling.py", line 73, in handler
+    _error_if_any_worker_fails()
+RuntimeError: DataLoader worker (pid 3836482) is killed by signal: Interrupt.
