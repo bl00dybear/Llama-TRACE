@@ -23,25 +23,40 @@ def test_task(model, tokenizer, task_name, device, cfg):
         max_examples=cfg.data.smoke_max_eval_examples_per_task,
     )
     logger.info(f"  Loaded {len(ds)} test examples for '{task_name}'")
+
+    eval_bs = getattr(cfg.training, "eval_batch_size", cfg.training.batch_size)
+    eval_nw = getattr(cfg.training, "eval_num_workers", cfg.training.num_workers)
+
     dl = DataLoader(
         ds,
-        batch_size=cfg.training.batch_size,
+        batch_size=eval_bs,
         shuffle=False,
-        num_workers=cfg.training.num_workers,
-        multiprocessing_context=mp.get_context("spawn") if cfg.training.num_workers > 0 else None
+        num_workers=eval_nw,
+        pin_memory=True,
+        multiprocessing_context=mp.get_context("spawn") if eval_nw > 0 else None,
     )
+
+    was_training = model.training
     model.eval()
+    model.config.use_cache = True
+
     if task_type == "classification":
         score = _eval_classification(model, tokenizer, dl, device, cfg, task_name)
     else:
         score = _eval_generation(model, tokenizer, dl, device, cfg, task_name)
+
+    model.config.use_cache = False
+    if was_training:
+        model.train()
+
     logger.info(f"  '{task_name}' score: {score:.4f}")
     return score
 
 def _eval_classification(model, tokenizer, dl, device, cfg, task_name=""):
     correct = 0
     total = 0
-    with torch.no_grad():
+    max_new = getattr(cfg.data, "max_new_tokens_cls", 16)
+    with torch.inference_mode():
         for prompts, answers in tqdm(dl, desc=f"Eval {task_name} (cls)", leave=False):
             inputs = tokenizer(
                 list(prompts),
@@ -52,7 +67,7 @@ def _eval_classification(model, tokenizer, dl, device, cfg, task_name=""):
             ).to(device)
             out = model.generate(
                 **inputs,
-                max_new_tokens=cfg.data.max_new_tokens,
+                max_new_tokens=max_new,
                 do_sample=False,
                 pad_token_id=tokenizer.pad_token_id,
             )
@@ -76,7 +91,7 @@ def _eval_generation(model, tokenizer, dl, device, cfg, task_name=""):
         return 0.0
     scorer = rouge_lib.RougeScorer(["rougeL"], use_stemmer=True)
     scores = []
-    with torch.no_grad():
+    with torch.inference_mode():
         for prompts, answers in tqdm(dl, desc=f"Eval {task_name} (gen)", leave=False):
             inputs = tokenizer(
                 list(prompts),

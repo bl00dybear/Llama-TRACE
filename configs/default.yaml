@@ -22,8 +22,9 @@ model:
 
 data:
   root: "dataset-trace/LLM-CL-Benchmark_500"
-  max_length: 256
-  max_new_tokens: 128
+  max_length: 4096
+  max_new_tokens: 1024
+  max_new_tokens_cls: 32
   smoke_max_train_examples_per_task: 4
   smoke_max_eval_examples_per_task: 2
   tasks:
@@ -47,6 +48,8 @@ data:
 
 training:
   batch_size: 1
+  eval_batch_size: 4
   num_workers: 16
+  eval_num_workers: 2
   grad_accum_steps: 16
   epochs: 1

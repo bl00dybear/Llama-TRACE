@@ -1,4 +1,4 @@
-method: "standard"
+method: "lora"
 rank: 64
 alpha: 64
 adapt_bias: false
