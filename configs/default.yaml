@@ -25,8 +25,8 @@ data:
   max_length: 4096
   max_new_tokens: 512
   max_new_tokens_cls: 16
-  smoke_max_train_examples_per_task: 4
-  smoke_max_eval_examples_per_task: 2
+  smoke_max_train_examples_per_task: null
+  smoke_max_eval_examples_per_task: null
   tasks:
     - "C-STANCE"
     - "FOMC"
