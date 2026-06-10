@@ -31,6 +31,7 @@ def get_llm(cfg):
     model = AutoModelForCausalLM.from_pretrained(
         cfg.model.id,
         torch_dtype=torch.bfloat16,
+        attn_implementation="sdpa",
     )
     model.config.use_cache = False
     if cfg.model.gradient_checkpointing:
