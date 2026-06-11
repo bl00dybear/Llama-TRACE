@@ -157,6 +157,9 @@ def run_continual_learning_pipeline(cfg):
             tags=list(cfg.wandb.get("tags", [])),
             reinit=True,
         )
+        wandb.define_metric("task_step")
+        wandb.define_metric("eval/*", step_metric="task_step")
+        wandb.define_metric("metrics/*", step_metric="task_step")
     
     device = torch.device("cuda", 0)
     torch.cuda.set_device(device)
@@ -246,21 +249,31 @@ def run_continual_learning_pipeline(cfg):
         for eval_id, eval_task in enumerate(cfg.data.tasks):
             score = test_task(model, tokenizer, eval_task, device, cfg)
             results_matrix[task_id][eval_id] = score
-            if wandb is not None and wandb.run is not None:
-                wandb.log({f"eval/{eval_task}/after_T{task_id+1}": score})
-                
+
         if task_id > 0:
             fwt_per_task[task_id] = calculate_fwt(baselines, results_matrix, num_tasks=task_id + 1)
-            if wandb is not None and wandb.run is not None:
-                wandb.log({f"metrics/fwt_after_T{task_id+1}": fwt_per_task[task_id]})
+
+        if wandb is not None and wandb.run is not None:
+            eval_log = {"task_step": task_id + 1}
+            for eval_id, eval_task in enumerate(cfg.data.tasks):
+                eval_log[f"eval/{eval_task}"] = results_matrix[task_id][eval_id]
+
+            if task_id > 0:
+                eval_log["metrics/fwt"] = fwt_per_task[task_id]
+
+            bwt = calculate_bwt(results_matrix, num_tasks=task_id + 1)
+            op = calculate_op(results_matrix, num_tasks=task_id + 1)
+            eval_log["metrics/bwt"] = bwt
+            eval_log["metrics/op"] = op
+
+            wandb.log(eval_log)
+
         if task_id == num_tasks - 1:
             bwt = calculate_bwt(results_matrix, num_tasks)
             op = calculate_op(results_matrix, num_tasks)
             logger.info("=" * 60)
             logger.info("FINAL CL METRICS  —  BWT=%.4f  |  OP=%.4f", bwt, op)
             logger.info("=" * 60)
-            if wandb is not None and wandb.run is not None:
-                wandb.log({"metrics/bwt": bwt, "metrics/op": op})
         if cfg.save_plots:
             plot_results_matrix(
                 results_matrix=results_matrix,

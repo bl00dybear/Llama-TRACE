@@ -53,20 +53,17 @@ def log_heatmap_to_wandb(results_matrix, cfg, baselines=None, fwt_per_task=None,
         y_labels.append(f"After T{i+1}")
         matrix_rows.append(list(row))
 
+    task_columns = [f"T{i+1} {tasks[i]}" for i in range(num_eval_tasks)]
     table_data = []
     for row_idx, y_label in enumerate(y_labels):
-        for col_idx in range(num_eval_tasks):
-            table_data.append([
-                f"T{col_idx+1} {tasks[col_idx]}",
-                y_label,
-                float(matrix_rows[row_idx][col_idx]),
-            ])
+        row_data = [y_label] + [round(float(matrix_rows[row_idx][col_idx]), 4) for col_idx in range(num_eval_tasks)]
+        table_data.append(row_data)
 
     table = wandb.Table(
         data=table_data,
-        columns=["Eval Task", "Train Step", "Score"],
+        columns=["Train Step"] + task_columns,
     )
-    wandb.log({"accuracy_heatmap": table})
+    wandb.log({"accuracy_matrix": table})
 
     if plt is not None and np is not None:
         fig = _build_heatmap_figure(matrix_rows, y_labels, tasks, fwt_per_task)
