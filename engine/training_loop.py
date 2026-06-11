@@ -169,15 +169,15 @@ def run_continual_learning_pipeline(cfg):
     baselines = [0.0] * num_tasks
     fwt_per_task = [None] * num_tasks
 
-    logger.info("=" * 60)
-    logger.info("ZERO-SHOT BASELINE EVALUATION")
-    logger.info("=" * 60)
-    for eval_id, eval_task in enumerate(cfg.data.tasks):
-        score = test_task(model, tokenizer, eval_task, device, cfg)
-        baselines[eval_id] = score
-        if wandb is not None and wandb.run is not None:
-            wandb.log({f"baseline/{eval_task}": score})
-    logger.info("Baselines: %s", {t: f"{b:.4f}" for t, b in zip(cfg.data.tasks, baselines)})
+    # logger.info("=" * 60)
+    # logger.info("ZERO-SHOT BASELINE EVALUATION")
+    # logger.info("=" * 60)
+    # for eval_id, eval_task in enumerate(cfg.data.tasks):
+    #     score = test_task(model, tokenizer, eval_task, device, cfg)
+    #     baselines[eval_id] = score
+    #     if wandb is not None and wandb.run is not None:
+    #         wandb.log({f"baseline/{eval_task}": score})
+    # logger.info("Baselines: %s", {t: f"{b:.4f}" for t, b in zip(cfg.data.tasks, baselines)})
 
     for task_id, task_name in enumerate(cfg.data.tasks):
         logger.info("=" * 60)
