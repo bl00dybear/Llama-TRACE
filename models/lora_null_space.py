@@ -122,5 +122,12 @@ def prepare_task_adapter(model, is_first_task, device, cfg):
                 m.merge_active_to_frozen()
                 m.update_null_space_projector()
                 m.reset_active_adapter()
+
+    for p in model_to_use.parameters():
+        p.requires_grad = False
+
+    for m in model_to_use.modules():
+        if isinstance(m, NullProjectedLoRAStackLinear):
+            m.set_trainable(True)
                 
     return model_to_use

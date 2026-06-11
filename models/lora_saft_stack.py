@@ -196,6 +196,15 @@ def prepare_task_adapter(model, is_first_task, device, task_list, cfg):
             if isinstance(m, LoRAStackLinear):
                 m.reset_active_adapter(binary_masks.get(f"{name}", None))
 
+    # Freeze all parameters
+    for p in model.parameters():
+        p.requires_grad = False
+
+    # Set only active adapter parameters to trainable
+    for m in model.modules():
+        if isinstance(m, LoRAStackLinear):
+            m.set_trainable(True)
+
     for p in model.parameters():
         p.grad = None
     gc.collect()

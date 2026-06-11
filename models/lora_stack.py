@@ -81,7 +81,8 @@ def inject_lora(model, device, cfg):
     has_lora = any(isinstance(m, LoRAStackLinear) for m in model.modules())
     if has_lora:
         return model
-        
+
+    injected = 0
     for name, module in model.named_modules():
         for proj_name in cfg.adapters.target_modules:
             if hasattr(module, proj_name):
@@ -92,6 +93,7 @@ def inject_lora(model, device, cfg):
                         proj_name,
                         LoRAStackLinear(base=base_linear, cfg=cfg)
                     )
+                    injected += 1
             
     model.to(device)
     for p in model.parameters():
@@ -101,6 +103,10 @@ def inject_lora(model, device, cfg):
         if isinstance(m, LoRAStackLinear):
             m.freeze_all_adapters()
             m.set_adapter_trainable(len(m.A_list) - 1, True)
+
+    trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    total = sum(p.numel() for p in model.parameters())
+    logger.info(f"LoRA injected on {injected} modules | trainable: {trainable:,} / {total:,} ({100*trainable/total:.2f}%)")
             
     return model
 
