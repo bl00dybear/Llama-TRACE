@@ -1,10 +1,10 @@
 #!/bin/bash
 
 echo "[1/7] lora_stack + adamw"
-uv run main.py adapters=lora_stack optimizer=adamw
+# uv run main.py adapters=lora_stack optimizer=adamw
 
 echo "[2/7] lora_stack + muon"
-# uv run main.py adapters=lora_stack optimizer=muon
+uv run main.py adapters=lora_stack optimizer=muon
 
 echo "[3/7] saft + adamw"
 uv run main.py adapters=saft optimizer=adamw

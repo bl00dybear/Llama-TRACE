@@ -1,5 +1,5 @@
 _target_: heavyball.Muon
-lr: 1e-4
+lr: 1e-5
 betas: [0.95, 0.99]
 compile_step: false
 optimizer_name: "muon"
